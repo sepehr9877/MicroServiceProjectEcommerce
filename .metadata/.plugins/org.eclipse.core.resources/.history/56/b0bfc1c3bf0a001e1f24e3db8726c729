@@ -1,0 +1,5 @@
+package com.MicorService.Registration.Entity;
+
+public class UsersEntity {
+
+}
