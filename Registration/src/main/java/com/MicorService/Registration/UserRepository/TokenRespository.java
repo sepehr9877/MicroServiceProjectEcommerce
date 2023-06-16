@@ -10,5 +10,6 @@ import com.MicorService.Registration.Entity.UsersEntity;
 public interface TokenRespository extends JpaRepository<TokenEntity,Integer> {
 	
 	public TokenEntity findByUser(UsersEntity user);
+	public TokenEntity findByToken(String token);
 
 }
