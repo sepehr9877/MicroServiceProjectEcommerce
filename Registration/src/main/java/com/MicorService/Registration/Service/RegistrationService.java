@@ -32,6 +32,7 @@ public class RegistrationService {
 		this.tokenService=tokenService;
 		this.tokenRespository=tokenRespository;
 		
+		
 	}
 	public LoginResponse RegisteringUser(UsersEntity user) {
 		this.userRepository.save(user);
@@ -40,7 +41,12 @@ public class RegistrationService {
 		token.setToken(tokenvalue);
 		token.setUser(user);
 		this.tokenRespository.save(token);
-		LoginResponse loginResponse=new LoginResponse(token.getId(), token.getToken(), token.getUser());
+		LoginResponse loginResponse=new LoginResponse(
+				user.getId(), 
+				token.getToken(),
+				user.getUsername(),
+				user.getEmail(),
+				user.getPassword());
 		return loginResponse;	
 	}
 	public LoginResponse LoginUser(LoginRequest user) {
@@ -49,9 +55,13 @@ public class RegistrationService {
 			UsersEntity usersEntity= this.userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
 			
 			TokenEntity token=this.tokenRespository.findByUser(usersEntity);
-			LoginResponse loginResponse=new LoginResponse(usersEntity.getId(),
+			LoginResponse loginResponse=new LoginResponse(
+					usersEntity.getId(), 
 					token.getToken(),
-					usersEntity);
+					usersEntity.getUsername(),
+					usersEntity.getEmail(),
+					usersEntity.getPassword()
+					);
 			return loginResponse;
 		}catch(Exception ex) {
 			throw new NoSuchElementException();

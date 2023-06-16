@@ -1,8 +1,12 @@
 package com.MicorService.Registration.Entity;
 
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,6 +15,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+
+
 
 @Entity
 public class UsersEntity {
@@ -28,11 +34,17 @@ public class UsersEntity {
 	@NotNull(message="password is null")
 	private String password;
 	
-	public UsersEntity() {}
-	public UsersEntity(String username,String email,String password) {
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private USER_ROLE role;
+	
+	public UsersEntity() {
+	}
+	public UsersEntity(String username,String email,String password,USER_ROLE role) {
 		this.email=email;
 		this.password=password;
 		this.username=username;
+		this.role=role;
 	}
 	public int getId() {
 		return id;
@@ -57,6 +69,12 @@ public class UsersEntity {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public USER_ROLE getRole() {
+		return role;
+	}
+	public void setRole(USER_ROLE role) {
+		this.role = role;
 	}
 	
 
