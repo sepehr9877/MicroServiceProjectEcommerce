@@ -5,11 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.MicorService.Registration.CustomAnnotations.CheckRoleAnnotation;
 import com.MicorService.Registration.CustomAnnotations.RequiresTokenAuthentication;
 import com.MicorService.Registration.CustomAnnotations.RequiresTokenAuthorization;
 import com.MicorService.Registration.Service.DetailService;
@@ -27,6 +29,11 @@ public class DetailController {
 		this.detailService=detailService;
 	}
 	
+	@GetMapping("/hello")
+	public String gethelo() {
+		return "Hello";
+	}
+	
 	
 	@GetMapping("/get/detail")
 	@RequiresTokenAuthentication
@@ -42,6 +49,15 @@ public class DetailController {
 		LoginResponse loginResponse=this.detailService.AuthorizedUser_getDetailOfUserByEmail(email);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(loginResponse);
 	}
+	
+	@GetMapping("/checkrole")
+	@RequiresTokenAuthorization
+	public ResponseEntity<?> checkRole(@RequestHeader("Authorization")String token){
+		System.out.println("Enter to Checking....");
+		return ResponseEntity.status(HttpStatus.OK).body("ADMIN");
+	}
+	
+	
 	
 	
 }

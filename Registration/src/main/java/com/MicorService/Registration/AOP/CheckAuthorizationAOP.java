@@ -39,6 +39,8 @@ public class CheckAuthorizationAOP {
 		try {
 			Object args[]= joinPoint.getArgs();
 			String token=(String) args[0];
+			System.out.println("Token");
+			System.out.println(token);
 			try {
 				TokenEntity tokenEntity= this.tokenRespository.findByToken(token);
 				UsersEntity usersEntity=tokenEntity.getUser();
@@ -47,9 +49,11 @@ public class CheckAuthorizationAOP {
 				}
 				
 			}catch(Exception ex) {
+				System.out.println("THrow excetip....");
 				throw new NoSuchElementException();
 			}
 		}catch(Exception ex) {
+			System.out.println("THrow excetip....");
 			throw new IllegalAccessError();
 		}
 		

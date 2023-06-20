@@ -1,0 +1,32 @@
+server:
+  port: 8082
+spring:
+  datasource:
+    password: Sepehr@12345
+    username: sepehr
+    url: jdbc:mysql://localhost:3306/microservice_project
+   
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  application:
+    name: PRODUCT   
+  servlet:
+    multipart:
+      enabled: TRUE
+     
+  mvc:
+    static-path-pattern: /static/**
+  web:
+    resources:
+      static-locations=classpath: /static/
+  
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ 
+  instance:
+    instance-id: PRODUCT
+          
+          
