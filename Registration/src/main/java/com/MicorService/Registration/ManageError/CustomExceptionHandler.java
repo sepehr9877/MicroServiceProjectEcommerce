@@ -1,5 +1,6 @@
 package com.MicorService.Registration.ManageError;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +15,13 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpServerErrorException.BadGateway;
+import org.springframework.web.client.HttpServerErrorException.InternalServerError;
+
+import com.thoughtworks.xstream.converters.javabean.JavaBeanConverter.DuplicateFieldException;
+import com.thoughtworks.xstream.converters.javabean.JavaBeanConverter.DuplicatePropertyException;
 
 import jakarta.ws.rs.BadRequestException;
+import jakarta.ws.rs.InternalServerErrorException;
 
 
 
@@ -28,7 +34,7 @@ public class CustomExceptionHandler {
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<?> handleValidation(MethodArgumentNotValidException ex){
-		System.out.println("Enter to this first function");
+		
 		Map<String, String>FieldsMessage=new  HashMap<String,String>();
 		ex.getFieldErrors().stream()
 				.map(fielderror ->FieldsMessage.put(fielderror.getField(), fielderror.getDefaultMessage()) )
@@ -54,6 +60,21 @@ public class CustomExceptionHandler {
 		this.error.setMessage("You are missing token , please put token in header");
 		this.error.setStatus(HttpStatus.BAD_REQUEST.value());
 		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(error);
+	}
+	
+	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+	public ResponseEntity<?> handleInternalServer(SQLIntegrityConstraintViolationException ex){
+		this.error.setMessage("Email already in used");
+		this.error.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(this.error);
+		
+	}
+	
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<?>  handleIllegalArgumentException(IllegalArgumentException ex){
+		this.error.setMessage("Only USER role can register ,you are passing ADMIN as the role");
+		this.error.setStatus(HttpStatus.BAD_REQUEST.value());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(this.error);
 	}
 	
 }

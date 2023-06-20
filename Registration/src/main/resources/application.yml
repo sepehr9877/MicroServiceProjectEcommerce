@@ -11,4 +11,14 @@ spring:
       ddl-auto: update
     show-sql: true
   application:
-    name: REGISTERATION    
+    name: REGISTERATION   
+    
+    
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+      
+      
+  instance:
+    instance-id: REGISTERATION

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.MicorService.Registration.CustomAnnotations.CheckRoleAnnotation;
 import com.MicorService.Registration.CustomAnnotations.RequiresArgsAnnotation;
 import com.MicorService.Registration.Entity.UsersEntity;
 import com.MicorService.Registration.Service.RegistrationService;
@@ -31,6 +32,7 @@ public class RegistrationController {
 	
 	
 	@PostMapping("/register")
+	@CheckRoleAnnotation
 	public  ResponseEntity<?> Register(@Valid @RequestBody  UsersEntity registerationRequest){
 		
 		
