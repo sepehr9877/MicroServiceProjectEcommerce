@@ -4,12 +4,12 @@ public class ProductResponse {
 	
 	private int id;
 	private String name;
-	private String image;
+	private String image_url;
 	public ProductResponse(int id, String name,String image) {
 		
 		this.id = id;
 		this.name = name;
-		this.image = image;
+		this.image_url = image;
 	}
 	public int getId() {
 		return id;
@@ -23,11 +23,11 @@ public class ProductResponse {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getImage() {
-		return image;
+	public String getImage_url() {
+		return image_url;
 	}
-	public void setImage(String image) {
-		this.image = image;
+	public void setImage_url(String image) {
+		this.image_url = image;
 	}
 
 }
