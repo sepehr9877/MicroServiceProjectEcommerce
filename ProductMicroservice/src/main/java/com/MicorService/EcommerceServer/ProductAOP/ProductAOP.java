@@ -47,7 +47,7 @@ public class ProductAOP {
 			HttpEntity<String> request=new HttpEntity<>(headers);
 			ResponseEntity<?>response= this.temp.exchange(registration_url, HttpMethod.GET, request, String.class);
 			if(response.getStatusCode()!=HttpStatus.OK) {
-				System.out.println("Respoonse");
+				
 				throw new IllegalAccessError();
 			}
 			
