@@ -17,10 +17,10 @@ public class TokenService {
 	
 	
 	
-	public String generatetoken(String username) {
+	public String generatetoken(String email) {
 		Date now=new Date();
 		Date expire=new Date(now.getTime()+EXPIRATION_TIME_MS);
-		return Jwts.builder().setSubject(username)
+		return Jwts.builder().setSubject(email)
 				.setIssuedAt(now)
 				.setExpiration(expire)
 				.signWith(Secret_key)
